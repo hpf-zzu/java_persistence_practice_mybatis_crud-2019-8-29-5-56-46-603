@@ -14,5 +14,9 @@ public interface EmployeeMapper {
     void insert(@Param("employee") Employee employee);
     Employee selectOne(@Param("id") String id);
 
+    List<Employee> selectLike(@Param("keyword") String keyword);
+
+    List<Employee> selectList(@Param("offset") int page, @Param("pagesize") int pagesize);
+
     void updateOne(@Param("employee") Employee employee, @Param("id") String id);
 }

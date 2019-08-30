@@ -22,12 +22,28 @@ public class EmployeeController {
     @Autowired
     private EmployeeService employeeService;
 
+//    @GetMapping("")
+//    public ResponseEntity<List<Employee>> getAll() {
+//
+//
+//        return ResponseEntity.ok(employeeMapper.selectAll());
+//    }
+
     @GetMapping("")
-    public ResponseEntity<List<Employee>> getAll() {
+    public ResponseEntity<List<Employee>> getAll(@RequestParam(required = false) int page,
+                                                 @RequestParam(required = false) int pagesize) {
 
 
-        return ResponseEntity.ok(employeeMapper.selectAll());
+        return ResponseEntity.ok(employeeService.getListEmployee(page,pagesize));
     }
+    @GetMapping("/byName")
+    public ResponseEntity<List<Employee>> getLike(@RequestParam(required = false) String like){
+        return ResponseEntity.ok(employeeService.getLike(like));
+
+    }
+
+
+
     @PostMapping("")
     public ResponseEntity<Employee> insert(@RequestBody Employee employee){
         String id = UUID.randomUUID().toString();

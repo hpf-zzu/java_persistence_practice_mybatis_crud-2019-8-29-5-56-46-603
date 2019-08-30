@@ -5,6 +5,21 @@
         select * from `employee`;
     </select>
 
+    <select id="selectLike" resultType="tws.entity.Employee">
+        select * from `employee`
+        <if test ="keyword != null">
+            <bind name = "pattern" value = "'%' + keyword + '%'"/>
+            where `name` like #{pattern}
+        </if>
+        ;
+
+    </select>
+
+    <select id="selectList" resultType="tws.entity.Employee">
+        select * from `employee` order by id offset #{offset} rows fetch next
+        #{pagesize} rows only;
+    </select>
+
     <insert id="insert">
         insert into `employee` (`id`,`name`,`age`)
         values (#{employee.id},#{employee.name},#{employee.age});
@@ -19,5 +34,6 @@
                               `age` = #{employee.age}
         where id = #{id};
     </update>
+
 
 </mapper>
